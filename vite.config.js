@@ -3,6 +3,11 @@ import { resolve } from 'path';
 import { defineConfig } from 'vite';
 
 export default defineConfig({
+  server: {
+    host: true, // Listen on all addresses
+    port: process.env.PORT || 5173,
+    strictPort: true
+  },
   root: 'src/',
   build: {
     outDir: '../dist',
