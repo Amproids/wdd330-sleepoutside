@@ -201,6 +201,10 @@ button {
   grid-row: 2;
   grid-column: 3;
 }
+#cart-total {
+  margin: 1rem 4rem;
+  padding: 1rem;
+}
 
 @media screen and (min-width: 500px) {
   body {
