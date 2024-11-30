@@ -26,3 +26,7 @@ export function getParam(param) {
     const urlParams = new URLSearchParams(queryString);
     return urlParams.get(param);
 }
+export function renderListWithTemplate(template, element, list) {
+  const htmlItems = list.map((item) => template(item));
+  element.innerHTML = htmlItems.join('');
+}
