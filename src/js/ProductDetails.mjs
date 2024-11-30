@@ -1,31 +1,59 @@
 import { setLocalStorage } from './utils.mjs';
+
 export default class ProductDetails {
     constructor(productId, dataSource) {
         this.productId = productId;
         this.product = {};
         this.dataSource = dataSource;
     }
-  
+
     async init() {
-      // Get product data
-      this.product = await this.dataSource.findProductById(this.productId);
-      // Render product
-      this.renderProductDetails();
-      // Add event listener
-      document.getElementById('addToCart')
-        .addEventListener('click', this.addToCart.bind(this));
+        // Get product data
+        this.product = await this.dataSource.findProductById(this.productId);
+        // Render product
+        this.renderProductDetails();
+        // Add event listener
+        document.getElementById('addToCart')
+            .addEventListener('click', this.addToCart.bind(this));
     }
-  
+
     addToCart() {
         const product = {
             id: this.product.Id,
             name: this.product.Name,
             color: this.product.Colors[0].ColorName,
-            price: this.product.FinalPrice
+            price: this.product.FinalPrice,
+            image: this.product.Image,
+            quantity: 1
         };
-        setLocalStorage('so-cart', product);
+    
+        // Get existing cart and ensure it's an array
+        let cart;
+        try {
+            cart = JSON.parse(localStorage.getItem('so-cart')) || [];
+            // Make sure cart is an array
+            if (!Array.isArray(cart)) {
+                cart = [cart];
+            }
+        } catch (e) {
+            cart = [];
+        }
+    
+        // Check if product already exists in cart
+        const existingProductIndex = cart.findIndex(item => item.id === product.id);
+    
+        if (existingProductIndex >= 0) {
+            // If product exists, increment quantity
+            cart[existingProductIndex].quantity += 1;
+        } else {
+            // If product doesn't exist, add it to cart
+            cart.push(product);
+        }
+    
+        // Save updated cart back to localStorage
+        setLocalStorage('so-cart', cart);
     }
-  
+
     renderProductDetails() {
         const productSection = document.querySelector('.product-detail');
         productSection.innerHTML = `<h3>${this.product.Brand.Name}</h3>
