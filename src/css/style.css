@@ -233,7 +233,79 @@ button {
   margin: 1rem 4rem;
   padding: 1rem;
 }
-
+/* Quantity Controls Container */
+.cart-card__quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+  }
+  
+  /* Quantity Buttons */
+  .quantity-btn {
+    background-color: #a0a0a0;
+    border: none;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s ease;
+  }
+  
+  .quantity-btn:hover {
+    background-color: #606060;
+  }
+  
+  .quantity-btn:active {
+    background-color: #c1c1c1;
+  }
+  
+  /* Quantity Display */
+  .cart-card__quantity {
+    margin: 0;
+    min-width: 60px;
+    text-align: center;
+  }
+  
+  /* Remove Button */
+  .remove-item {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+    margin-top: 0.5rem;
+  }
+  
+  .remove-item:hover {
+    background-color: #ff0000;
+  }
+  
+  /* Cart Card Modifications */
+  .cart-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #e2e2e2;
+  }
+  
+  .cart-card__image {
+    grid-row: span 4;
+  }
+  
+  .cart-card__image img {
+    max-width: 100px;
+    height: auto;
+  }
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
@@ -249,6 +321,35 @@ button {
     font-size: inherit;
     grid-template-columns: 150px auto 15%;
   }
+  .cart-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .cart-card__image {
+    grid-row: auto;
+  }
+
+  .cart-card__quantity-controls {
+    justify-content: center;
+  }
+    /* Animation for quantity changes */
+    .cart-card__quantity {
+    transition: opacity 0.2s ease;
+    }
+
+    .quantity-btn:active + .cart-card__quantity {
+    opacity: 0.5;
+    }
+
+    /* Empty cart message */
+    .cart-empty {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
+    }
+
 }
 
 footer {
