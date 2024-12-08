@@ -23,10 +23,10 @@ export default class ProductDetails {
             name: this.product.Name,
             color: this.product.Colors[0].ColorName,
             price: this.product.FinalPrice,
-            image: this.product.Image,
+            image: this.product.Images.PrimaryMedium, // Updated to use new image structure
             quantity: 1
         };
-    
+
         // Get existing cart and ensure it's an array
         let cart;
         try {
@@ -38,10 +38,9 @@ export default class ProductDetails {
         } catch (e) {
             cart = [];
         }
-    
+
         // Check if product already exists in cart
         const existingProductIndex = cart.findIndex(item => item.id === product.id);
-    
         if (existingProductIndex >= 0) {
             // If product exists, increment quantity
             cart[existingProductIndex].quantity += 1;
@@ -49,7 +48,7 @@ export default class ProductDetails {
             // If product doesn't exist, add it to cart
             cart.push(product);
         }
-    
+
         // Save updated cart back to localStorage
         setLocalStorage('so-cart', cart);
     }
@@ -60,7 +59,7 @@ export default class ProductDetails {
             <h2 class="divider">${this.product.NameWithoutBrand}</h2>
             <img
                 class="divider"
-                src="${this.product.Image}"
+                src="${this.product.Images.PrimaryLarge}"
                 alt="${this.product.NameWithoutBrand}"
             />
             <p class="product-card__price">$${this.product.FinalPrice}</p>

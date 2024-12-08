@@ -121,7 +121,35 @@ button {
 }
 .products {
   padding: 0.5em;
+}.product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
 }
+
+.category-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.category-box:hover {
+    transform: scale(1.05);
+}
+
+.category-box img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 10px;
+}
+
+.category-box h3 {
+    margin: 0;
+    color: #333;
+}
+
 .product-list {
   display: flex;
   flex-flow: row wrap;
@@ -213,6 +241,9 @@ button {
   }
   .mission {
     font-size: 1.2em;
+  }
+  .product-grid {
+      grid-template-columns: repeat(4, 1fr);
   }
   .cart-card {
     font-size: inherit;

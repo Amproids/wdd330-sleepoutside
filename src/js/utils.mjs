@@ -24,10 +24,9 @@ export function qs(selector, parent = document) {
     return urlParams.get(param);
   }
   
-  export function renderListWithTemplate(templateFn, parentSelector, list) {
-    const element = qs(parentSelector);
-    if (element) {
-      element.innerHTML = list.map(templateFn).join('');
+  export function renderListWithTemplate(templateFn, parentElement, list) {
+    if (parentElement) {
+      parentElement.innerHTML = list.map(templateFn).join('');
     }
   }
   
