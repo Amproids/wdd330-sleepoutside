@@ -1,5 +1,7 @@
 import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
+import { loadHeaderFooter } from './utils.mjs';
+
 
 //create an instance of your ProductListing class in main.js and make sure that you can see the list of products. 
 //Using a template, insert the following HTML into the DOM:
@@ -14,3 +16,5 @@ async function initializeList() {
 }
 
 initializeList();
+
+loadHeaderFooter();
