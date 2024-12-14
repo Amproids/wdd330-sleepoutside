@@ -1,11 +1,11 @@
 import { loadHeaderFooter } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 
 loadHeaderFooter();
 
 console.log("Checkout")
-const services = new ProductData();
+const services = new ExternalServices();
 const checkoutProcess = new CheckoutProcess("so-cart", "#order-summary");
 
 function formDataToJSON(formElement) {
@@ -35,7 +35,7 @@ function init() {
         .addEventListener("blur", (e) => {
             if (e.target.value.length === 5) {
                 checkoutProcess.calculateOrdertotal();
-                
+
             }
     });
 

@@ -8,7 +8,7 @@ function convertToJson(res) {
 
 const baseURL = import.meta.env.VITE_SERVER_URL;
 
-export default class ProductData {
+export default class ExternalServices{
     constructor() {
         // Constructor is now empty since we don't need to set category and path anymore
     }
