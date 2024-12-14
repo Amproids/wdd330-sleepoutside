@@ -1,17 +1,88 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sleep Outside | Checkout</title>
-    <link rel="stylesheet" href="css/style.css"/>
-    <script defer src="../js/main.js" type="module"></script>
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/Checkout.css" />
+
+    <script defer type="module" src="../js/checkout.js" ></script>
   </head>
   <body>
     <header id="main-header" class="divider"></header>
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
+        
+        <form id="checkout-form" action="" method="post">
+          <!-- Customer Information -->
+          <fieldset>
+            <legend>Customer Information</legend>
+            <div class="form-group">
+              <label for="first-name">First Name:</label>
+              <input type="text" id="first-name" name="fname" required />
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name:</label>
+              <input type="text" id="last-name" name="lname" required />
+            </div>
+          </fieldset>
+
+          <!-- Shipping/Billing Address -->
+          <fieldset>
+            <legend>Shipping/Billing Address</legend>
+            <div class="form-group">
+              <label for="street">Street Address:</label>
+              <input type="text" id="street" name="street" required />
+            </div>
+            <div class="form-group">
+              <label for="city">City:</label>
+              <input type="text" id="city" name="city" required />
+            </div>
+            <div class="form-group">
+              <label for="state">State:</label>
+              <input type="text" id="state" name="state" required />
+            </div>
+            <div class="form-group">
+              <label for="zip">Zip Code:</label>
+              <input type="text" id="zip" name="zip" pattern="[0-9]{5}" required />
+            </div>
+          </fieldset>
+
+          <!-- Payment Information -->
+          <fieldset>
+            <legend>Payment Information</legend>
+            <div class="form-group">
+              <label for="cardNumber">Credit Card Number:</label>
+              <input type="text" id="cardNumber" name="cardNumber" required />
+            </div>
+            <div class="form-group">
+              <label for="expiration">Expiration Date:</label>
+              <input type="text" id="expiration" name="expiration" placeholder="MM/YY" required />
+            </div>
+            <div class="form-group">
+              <label for="code">Security Code:</label>
+              <input type="text" id="code" name="code" pattern="[0-9]{3}" required />
+            </div>
+          </fieldset>
+
+          <!-- Order Summary Section -->
+          <fieldset class="order-summary">
+            <legend>Order Summary</legend>
+            <div id="order-summary">
+              <p class="summary-line">Subtotal: <span id="cart-subtotal">$0.00</span></p>
+              <p class="summary-line">Shipping: <span id="cart-shipping">$0.00</span></p>
+              <p class="summary-line">Tax: <span id="cart-tax">$0.00</span></p>
+              <hr>
+              <p class="summary-line total"><b>Order Total: <span id="cart-total">$0.00</span></b></p>
+            </div>
+          </fieldset>
+
+          <div class="form-footer">
+            <button type="submit">Place Order</button>
+          </div>
+        </form>
       </section>
     </main>
     <footer id="main-footer"></footer>

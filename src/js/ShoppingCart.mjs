@@ -112,7 +112,6 @@ export default class ShoppingCart {
     const totalElement = document.querySelector('#cart-total');
     if (totalElement) {
       totalElement.innerHTML = `Subtotal: $${total.toFixed(2)}`;
-      totalElement.style.display = 'block';
     }
   }
 }

@@ -30,6 +30,7 @@ header {
   justify-content: space-between;
   padding: 0 10px;
 }
+
 .logo {
   line-height: 60px;
   width: 245px;
@@ -230,8 +231,9 @@ button {
   grid-column: 3;
 }
 #cart-total {
-  margin: 1rem 4rem;
-  padding: 1rem;
+    display:inline;
+    margin: 1rem 4rem;
+    padding: 1rem;
 }
 /* Quantity Controls Container */
 .cart-card__quantity-controls {
@@ -306,6 +308,21 @@ button {
     max-width: 100px;
     height: auto;
   }
+.btn {
+    padding: 0.75rem 1.5rem;
+    margin: 1rem;
+    background-color: #303030;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    display: inline-block;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #505050;
+}
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
