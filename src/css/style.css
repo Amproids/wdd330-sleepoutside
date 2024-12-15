@@ -99,18 +99,43 @@ button {
 
 /* Cart icon styles */
 .cart {
-  padding-top: 1em;
-  position: relative;
-  text-align: center;
+    margin-top: 1rem;
+    position: relative;
+    position: relative;
+    text-align: center;
 }
-
+  
+.cart-count {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .cart svg {
   width: 25px;
 }
 .cart:hover svg {
   fill: gray;
 }
-
+  
+.add-to-cart-dot {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    background: red;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1000;
+    transition: all 1s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
 /* End cart icon styles */
 
 .mission {
