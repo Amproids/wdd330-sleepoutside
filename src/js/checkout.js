@@ -39,30 +39,31 @@ function init() {
             }
     });
 
-    document.querySelector("#checkout-form")
+    document
+        .querySelector("#checkout-form")
         .addEventListener("submit", async (e) => {
             e.preventDefault();
-            
-            try {
-                const json = formDataToJSON(e.target);
-                json.items = packageItems(checkoutProcess.list);
-                json.orderTotal = checkoutProcess.orderTotal;
-                json.shipping = checkoutProcess.shipping;
-                json.tax = checkoutProcess.tax;
-                json.orderDate = new Date().toISOString();
-                
-                const res = await services.checkout(json);
-                console.log(res);
-                
-                // Clear the cart and redirect to success page
-                localStorage.removeItem("so-cart");
-                location.assign("/checkout/success.html");
-                
-            } catch (err) {
-                console.log(err);
-                // Handle errors here
+            const form = e.target;
+            // Check form validity
+            if (form.checkValidity()) {
+                try {
+                    const json = formDataToJSON(form);
+                    json.items = packageItems(checkoutProcess.list);
+                    json.orderTotal = checkoutProcess.orderTotal;
+                    json.shipping = checkoutProcess.shipping;
+                    json.tax = checkoutProcess.tax;
+                    json.orderDate = new Date().toISOString();
+                    
+                    const res = await services.checkout(json);
+                    localStorage.removeItem("so-cart");
+                    location.assign("/checkout/success.html");
+                } catch (err) {
+                    alertMessage(err.message);
+                }
+            } else {
+                form.reportValidity();
             }
-    });
+        });
 }
 
 init();
