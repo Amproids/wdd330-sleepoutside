@@ -1,12 +1,9 @@
-import { loadHeaderFooter } from "./utils.mjs";
-import CheckoutProcess from "./CheckoutProcess.mjs";
-import ExternalServices from "./ExternalServices.mjs";
+import { loadHeaderFooter, alertMessage } from './utils.mjs';
+import CheckoutProcess from './CheckoutProcess.mjs';
 
 loadHeaderFooter();
 
-console.log("Checkout")
-const services = new ExternalServices();
-const checkoutProcess = new CheckoutProcess("so-cart", "#order-summary");
+const checkoutProcess = new CheckoutProcess('so-cart', '#order-summary');
 
 function formDataToJSON(formElement) {
   const formData = new FormData(formElement),
@@ -31,8 +28,8 @@ function packageItems(items) {
 function init() {
     checkoutProcess.init();
 
-    document.querySelector("#zip")
-        .addEventListener("blur", (e) => {
+    document.querySelector('#zip')
+        .addEventListener('blur', (e) => {
             if (e.target.value.length === 5) {
                 checkoutProcess.calculateOrdertotal();
 
@@ -40,8 +37,8 @@ function init() {
     });
 
     document
-        .querySelector("#checkout-form")
-        .addEventListener("submit", async (e) => {
+        .querySelector('#checkout-form')
+        .addEventListener('submit', async (e) => {
             e.preventDefault();
             const form = e.target;
             // Check form validity
@@ -54,9 +51,8 @@ function init() {
                     json.tax = checkoutProcess.tax;
                     json.orderDate = new Date().toISOString();
                     
-                    const res = await services.checkout(json);
-                    localStorage.removeItem("so-cart");
-                    location.assign("/checkout/success.html");
+                    localStorage.removeItem('so-cart');
+                    location.assign('/checkout/success.html');
                 } catch (err) {
                     alertMessage(err.message);
                 }
