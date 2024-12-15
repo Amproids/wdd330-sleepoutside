@@ -16,45 +16,71 @@ export default class ProductDetails {
         // Add event listener
         document.getElementById('addToCart')
             .addEventListener('click', this.addToCart.bind(this));
+        // Update cart count
+        this.updateCartCount();
     }
 
     addToCart() {
+        const button = document.getElementById('addToCart');
+        const rect = button.getBoundingClientRect();
+        this.createAddToCartAnimation(rect.left + (rect.width / 2), rect.top + (rect.height / 2));
+        
         const product = {
-            id: this.product.Id,
-            name: this.product.Name,
-            color: this.product.Colors[0].ColorName,
-            price: this.product.FinalPrice,
-            image: this.product.Images.PrimaryMedium, // Updated to use new image structure
-            quantity: 1
+          id: this.product.Id,
+          name: this.product.Name,
+          color: this.product.Colors[0].ColorName,
+          price: this.product.FinalPrice,
+          image: this.product.Images.PrimaryMedium,
+          quantity: 1
         };
-
-        // Get existing cart and ensure it's an array
-        let cart;
-        try {
-            cart = JSON.parse(localStorage.getItem('so-cart')) || [];
-            // Make sure cart is an array
-            if (!Array.isArray(cart)) {
-                cart = [cart];
-            }
-        } catch (e) {
-            cart = [];
-        }
-
-        // Check if product already exists in cart
+        let cart = JSON.parse(localStorage.getItem('so-cart')) || [];
+        if (!Array.isArray(cart)) cart = [cart];
+        
         const existingProductIndex = cart.findIndex(item => item.id === product.id);
         if (existingProductIndex >= 0) {
-            // If product exists, increment quantity
-            cart[existingProductIndex].quantity += 1;
+          cart[existingProductIndex].quantity += 1;
         } else {
-            // If product doesn't exist, add it to cart
-            cart.push(product);
+          cart.push(product);
         }
-
-        // Save updated cart back to localStorage
+        
         setLocalStorage('so-cart', cart);
-
-        alertMessage(`${product.name} added to cart!`, '#90EE90');  // false to not auto-scroll
-    }
+        this.updateCartCount();
+        alertMessage(`${product.name} added to cart!`, '#90EE90');
+      }
+      
+      createAddToCartAnimation(startX, startY) {
+        const dot = document.createElement('div');
+        dot.className = 'add-to-cart-dot';
+        dot.style.top = `${startY}px`;
+        dot.style.left = `${startX}px`;
+        document.body.appendChild(dot);
+      
+        const cart = document.querySelector('.cart svg');
+        const cartRect = cart.getBoundingClientRect();
+        
+        requestAnimationFrame(() => {
+          dot.style.top = `${cartRect.top + (cartRect.height / 2)}px`;
+          dot.style.left = `${cartRect.left + (cartRect.width / 2)}px`;
+          dot.style.opacity = '0';
+        });
+      
+        setTimeout(() => dot.remove(), 1000);
+      }
+      
+      updateCartCount() {
+        const cart = JSON.parse(localStorage.getItem('so-cart')) || [];
+        const count = Array.isArray(cart) ? cart.length : 1;
+        
+        let countBadge = document.querySelector('.cart-count');
+        if (!countBadge) {
+          countBadge = document.createElement('div');
+          countBadge.className = 'cart-count';
+          document.querySelector('.cart').appendChild(countBadge);
+        }
+        
+        countBadge.textContent = count;
+        countBadge.style.display = count > 0 ? 'flex' : 'none';
+      }
 
     renderProductDetails() {
         const productSection = document.querySelector('.product-detail');
