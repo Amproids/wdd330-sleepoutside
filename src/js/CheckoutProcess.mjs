@@ -67,37 +67,36 @@ export default class CheckoutProcess {
     }
   
     async checkout(form) {
-      // build the data object from the calculated fields, the items in the cart, 
-      // and the information entered into the form
-      const formData = new FormData(form);
-      const items = this.packageItems(this.list);
-      
-      const orderDetails = {
-        orderDate: new Date().toISOString(),
-        items: items,
-        orderTotal: this.orderTotal,
-        shipping: parseFloat(this.shipping),
-        tax: parseFloat(this.tax),
-        fname: formData.get("fname"),
-        lname: formData.get("lname"),
-        street: formData.get("street"),
-        city: formData.get("city"),
-        state: formData.get("state"),
-        zip: formData.get("zip"),
-        cardNumber: formData.get("cardNumber"),
-        expiration: formData.get("expiration"),
-        code: formData.get("code")
-      };
-  
-      try {
-        const res = await services.checkout(orderDetails);
-        console.log(res);
-      } catch (err) {
-        console.log(err);
-      }
+        const formData = new FormData(form);
+        const items = this.packageItems(this.list);
+        const orderDetails = {
+            orderDate: new Date().toISOString(),
+            items: items,
+            orderTotal: this.orderTotal,
+            shipping: parseFloat(this.shipping),
+            tax: parseFloat(this.tax),
+            fname: formData.get("fname"),
+            lname: formData.get("lname"),
+            street: formData.get("street"),
+            city: formData.get("city"),
+            state: formData.get("state"),
+            zip: formData.get("zip"),
+            cardNumber: formData.get("cardNumber"),
+            expiration: formData.get("expiration"),
+            code: formData.get("code")
+        };
+        
+        try {
+            const res = await services.checkout(orderDetails);
+            localStorage.removeItem("so-cart");
+            location.href = "/checkout/success.html";
+        } catch (err) {
+            // Display error to user using the alertMessage utility
+            alertMessage(err.message);
+        }
     }
-  }
-  
+}
+
   function getLocalStorage(key) {
     return JSON.parse(localStorage.getItem(key)) || [];
   }

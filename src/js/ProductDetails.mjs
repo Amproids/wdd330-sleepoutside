@@ -1,4 +1,5 @@
 import { setLocalStorage } from './utils.mjs';
+import { alertMessage } from './utils.mjs';
 
 export default class ProductDetails {
     constructor(productId, dataSource) {
@@ -51,6 +52,8 @@ export default class ProductDetails {
 
         // Save updated cart back to localStorage
         setLocalStorage('so-cart', cart);
+
+        alertMessage(`${product.name} added to cart!`, '#90EE90');  // false to not auto-scroll
     }
 
     renderProductDetails() {

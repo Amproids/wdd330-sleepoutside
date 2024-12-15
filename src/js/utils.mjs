@@ -43,22 +43,41 @@ export function qs(selector, parent = document) {
     const res = await fetch(path);
     const template = await res.text();
     return template;
-  }
+}
   
   export async function loadHeaderFooter() {
     try {
-      const headerTemplate = await loadTemplate("../partials/header.html");
-      const headerElement = document.querySelector("#main-header");
-      const footerTemplate = await loadTemplate("../partials/footer.html");
-      const footerElement = document.querySelector("#main-footer");
-  
-      if (headerElement && footerElement) {
-        renderWithTemplate(headerTemplate, headerElement);
-        renderWithTemplate(footerTemplate, footerElement);
-      } else {
-        console.error("Header or footer elements not found");
-      }
+        const headerTemplate = await loadTemplate("../partials/header.html");
+        const headerElement = document.querySelector("#main-header");
+        const footerTemplate = await loadTemplate("../partials/footer.html");
+        const footerElement = document.querySelector("#main-footer");
+        if (headerElement && footerElement) {
+            renderWithTemplate(headerTemplate, headerElement);
+            renderWithTemplate(footerTemplate, footerElement);
+        } else {
+            console.error("Header or footer elements not found");
+        }
     } catch (err) {
-      console.error("Error loading header/footer:", err);
+        console.error("Error loading header/footer:", err);
     }
-  }
+}
+export function alertMessage(message, color = 'red', timer = 5000) {
+    const alert = document.createElement('div');
+    alert.classList.add('alert');
+    alert.innerHTML = `<p>${message}</p><span> X</span>`;
+    
+    alert.addEventListener('click', function(e) {
+        if(e.target.tagName === 'SPAN') {
+            main.removeChild(this);
+        }
+    });
+    const main = document.querySelector('main');
+    main.prepend(alert);
+    alert.style.backgroundColor = color;
+    
+    if(timer) {
+        setTimeout(function() {
+            main.removeChild(alert);
+        }, timer);
+    }
+}
